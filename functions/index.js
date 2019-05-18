@@ -61,10 +61,18 @@ exports.sendFCM = functions.https.onRequest((req, res) => {
               title: 'Thanks for your Purchase!',
               body: 'Get 10% off your next purchase with "COMEBACK10".',
             },
-          };
+        };
       
           // Send notifications to all tokens.
-          return admin.messaging().sendToDevice(fcm_device_token, payload);
+        admin.messaging().sendToDevice(fcm_device_token, payload)
+        // .then(() => {res.send("OK")} )
+        // .catch(() => { res.send("FAIL")});
+            .then(function(response) {
+                return res.send("OK")
+            })
+            .catch(function(error) {
+                return res.send("FAIL")
+            });
    
     });
 });
