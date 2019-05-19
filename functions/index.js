@@ -71,13 +71,22 @@ exports.sendFCM = functions.https.onRequest((req, res) => {
             // 성공하면 문서안의 'text'필드 값을 응답해 줍니다.
             // return res.status(200).send({ reuslt : doc.data() });
 
-            var fcm_device_token = doc.data();
+            var fcm_device_token = doc.data().token;
+
+            console.log("token : "+fcm_device_token)
 
             let payload = {
-                notification: {
-                  title: 'Thanks for your Purchase!',
-                  body: 'Get 10% off your next purchase with "COMEBACK10".',
-                },
+                // notification: {
+                //   title: 'Thanks for your Purchase!',
+                //   body: 'Get 10% off your next purchase with "COMEBACK10".',
+                // },
+                // android: {
+                //     priority: 'high'
+                // },
+                data: {
+                    title: 'title',
+                    body: 'body',
+                }
             };
           
               // Send notifications to all tokens.
@@ -106,31 +115,15 @@ exports.sendFCM = functions.https.onRequest((req, res) => {
 
 exports.reqInfo = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
-       
-        // res.status(200).json({
-        //     message: 'It worked!',
-        //   })
 
-        // return res;
+        // var time = req.body.rawBody
+        // const time = req.body.time
 
-        // const docRef = db.collection('cur_location').doc('lLxQJ1cOQv5nU3HNNSSm');
-        // const getDoc = docRef.get()
-        // .then(doc => {
-        //     if (!doc.exists) {
-        //         console.log('No such document!');
-        //     return res.send('Not Found')
-        //     } 
-        //     console.log(doc.data());
-        //     return res.send(doc.data());
-
-        // })
-        // .catch(err => {
-        //     console.log('Error getting document', err);
-        // });
+        // console.log("cur_time : "+time);
 
 
         // 디비 'cur_location' 컬렉션 'lLxQJ1cOQv5nU3HNNSSm' 문서의 'cur_time' 필드의 값을 요청값 body의 cur_time 값으로 업데이트 해줍니다.
-        db.collection('cur_location').doc('lLxQJ1cOQv5nU3HNNSSm').update({ cur_time: '3333'/*req.body.text*/ });
+        // db.collection('cur_location').doc('lLxQJ1cOQv5nU3HNNSSm').update({ cur_time: time/*req.body.text*/ });
 
         res.status(200).json({
             message: 'It worked!',
