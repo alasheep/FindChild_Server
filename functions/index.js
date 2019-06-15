@@ -100,6 +100,12 @@ exports.sendFCM = functions.https.onRequest((req, res) => {
                     return res.send("FAIL")
                 });
 
+            // 위치 초기
+            db.collection('cur_location').doc('lLxQJ1cOQv5nU3HNNSSm').update({ 
+                cur_latitude: "",
+                cur_longtitude: ""
+            });
+
             return res.send("OK")
 
         }).catch(err => {
